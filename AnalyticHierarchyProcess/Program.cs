@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AnalyticHierarchyManager;
+using AnalyticHierarchyManager = AnalyticHierarchyManager.AnalyticHierarchyManager;
 
 namespace AnalyticHierarchyProcess
 {
@@ -10,6 +12,7 @@ namespace AnalyticHierarchyProcess
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }
