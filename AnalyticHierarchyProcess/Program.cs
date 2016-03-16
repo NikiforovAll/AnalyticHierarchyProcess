@@ -14,14 +14,7 @@ namespace AnalyticHierarchyProcess
         {
             Console.Clear();
             PrintLogo();
-            try
-            {
-                Console.WriteLine($"Ваш выбор - {ahm.OptionsData[ahm.Process()]}"); //ahm.OptionsList[ahm.Process()]
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            Console.WriteLine($"Ваш выбор - {ahm.OptionsData[ahm.Process()]}"); //ahm.OptionsList[ahm.Process()]
         }
         public static void PrintLogo()
         {
@@ -36,6 +29,15 @@ namespace AnalyticHierarchyProcess
             Console.WriteLine("1-равнозначно\t3-умеренно\t5-существенно\t7-значительное\t9-очевидное");
             Console.WriteLine("2,4,6,8 - промежуточные значения");
             Console.WriteLine("//////////////////////////////////////////////////////////////////////////\n");
+        }
+        public static void PrintOpts()
+        {
+            Console.WriteLine("   Samsung - UE40J5590   |   LG - 32LF592U      |   SONY - KDL-40R453C   ");
+            Console.WriteLine("   Diag: 40''            |   Diag: 32''         |   Diag: 40''           ");
+            Console.WriteLine("   Smart TV: Yes         |   Smart TV: Yes      |   Smart TV: No         ");
+            Console.WriteLine("   Res: 1920x1080        |   Res: 1366x768      |   Res: 1920x1080       ");
+            Console.WriteLine("   Wi-Fi: Yes            |   Wi-Fi: Yes         |   Wi-Fi: No            ");
+            Console.WriteLine("   Price: 16399          |   Price: 9299        |   Price: 9999        \n");
         }
         public static void FillCriteriasCompares(AnalyticHierarchyManager.AnalyticHierarchyManager ahm)
         {
@@ -68,6 +70,7 @@ namespace AnalyticHierarchyProcess
                     Console.Clear();
                     PrintLogo();
                     PrintScale();
+                    PrintOpts();
                     ahm.OptionsList[criteria].Add(new PairComparison(ahm.NumOptions));
                     Console.WriteLine("Отвечает эксперт №{0}", expert + 1);
                     for (int i = 0; i < ahm.NumOptions - 1; i++)
@@ -109,13 +112,33 @@ namespace AnalyticHierarchyProcess
             ahm.OptionsData.Add("Samsung");
             ahm.OptionsData.Add("LG");
             ahm.OptionsData.Add("Sony");
-            FillCriteriasCompares(ahm);
-            FillOptionsCompares(ahm);
-            PrintResult(ahm);
-
-
-
+            //FillCriteriasCompares(ahm);
+            //FillOptionsCompares(ahm);
+            //PrintResult(ahm);
+            bool reInput;
+            do
+            {
+                reInput = false;
+                FillCriteriasCompares(ahm);
+                FillOptionsCompares(ahm);
+                try
+                {
+                    PrintResult(ahm);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("В ответах экспертов обнаружены противоречия. Требуется ввести данные заново.\nНажмите Enter для повторного ввода.\nНажмите q для выхода из программы.");
+                    if (Console.ReadLine() != "q")
+                    {
+                        reInput = true;
+                    }
+                    else {
+                        Console.Clear();
+                        Console.WriteLine("Программа завершена");
+                    }
+                }
+            }
+            while (reInput);
         }
     }
-
 }
